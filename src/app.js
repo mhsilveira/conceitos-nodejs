@@ -51,15 +51,17 @@ if(repoIndex < 0){
     error: "Specified repository does not exist."
   })
 }
-//const likes = repositories[repoIndex].likes;
+const oldLikes = repositories[repoIndex].likes;
 const myRepo = {
+  id,
   title,
   url,
-  techs
+  techs,
+  likes: oldLikes
 };
 
 repositories[repoIndex] = myRepo;
-return response.status(204).send();
+return response.json(myRepo);
 // should be able to update repository AND he HAS to exist.
 });
 
@@ -88,7 +90,7 @@ app.post("/repositories/:id/like", (request, response) => {
     })
   }
   repository.likes += 1;
-  return response.status(204).send();
+  return response.json(repository);
 });
 
 module.exports = app;
